@@ -3,11 +3,13 @@
 <form #personForm="ngForm" (submit)="onSubmit(personForm)">
   <input
     type="text"
-    name="person"
-    required
+    name="fullName"
     ngModel
     #fullName
     placeholder="Full Name"
+    required
   />
   <button>Submit</button>
 </form>
+
+

@@ -21,8 +21,8 @@ export class PersonService {
 
   createPerson = (fullName: string) => {
     const person = { fullName: fullName };
-    this.http.post(this.url, person).subscribe((data) => {
-      this.persons.push(data);
+    this.http.post(this.url, person).subscribe(() => {
+      this.persons.push(person);
       this.updatedPersons.next([...this.persons]);
     });
   };

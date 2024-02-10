@@ -8,7 +8,6 @@ const port = process.env.PORT || 3000;
 
 app.use(cors({ origin: "http://localhost:4200" }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -29,18 +28,20 @@ const personSchema = mongoose.Schema({
 const Person = mongoose.model("Person", personSchema);
 
 app.post("/", (req, res) => {
-  const fullName = req.body.fullName;
-  const person = new Person({ fullName });
+  const person = new Person({ fullName: req.body.fullName });
+  console.log(req.body);
   person
     .save()
-    .then((data) => {
+    .then((createdPerson) => {
       res.status(200).json({
         message: "person created...",
-        createdPeron: data.fullName,
+        createdPeron: createdPerson,
       });
+      console.log(createdPerson);
     })
     .catch((err) => {
-      res.status(500).json({ error: error.message });
+      res.status(500);
+      console.log(err);
     });
 });
 
@@ -48,10 +49,7 @@ app.post("/", (req, res) => {
 app.get("/", (req, res) => {
   Person.find()
     .then((data) => {
-      res.status(201).json({
-        message: "fetched persons",
-        persons: data,
-      });
+      res.status(200).json(data);
     })
     .catch((error) => {
       res.status(500).json({ error: error.message });

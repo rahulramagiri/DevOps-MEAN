@@ -13,14 +13,20 @@ import { NgForm } from '@angular/forms';
   styleUrl: './person.component.css',
 })
 export class PersonComponent implements OnInit, OnDestroy {
-  persons = [];
+  persons:any = [];
 
   constructor(private personService: PersonService) {}
 
   onSubmit(form: NgForm) {
     this.personService.createPerson(form.value.fullName);
-    console.log(form.value);
+    console.log(form);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.personService.getPersons();
+    // this.personService.getPersonListener().subscribe((personData) => {
+    //   console.log(personData);
+    //   this.persons = personData;
+    // });
+  }
   ngOnDestroy(): void {}
 }
