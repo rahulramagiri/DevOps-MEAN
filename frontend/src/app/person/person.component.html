@@ -1,0 +1,13 @@
+<h1>Hello</h1>
+
+<form #personForm="ngForm" (submit)="onSubmit(personForm)">
+  <input
+    type="text"
+    name="person"
+    required
+    ngModel
+    #fullName
+    placeholder="Full Name"
+  />
+  <button>Submit</button>
+</form>
